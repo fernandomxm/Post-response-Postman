@@ -1,6 +1,6 @@
 let response = pm.response.json();
 let resultsByAccount = {};
-let excludedAccounts = ["461835337376", "getmypassword-ti (922106698561)", "auditoria-interna-totvs-8136", "ti-app-sec (027677615331)"];
+let excludedAccounts = ["name1", "name2"];
 if (Array.isArray(response.data)) {
     response.data.forEach(item => {
         if (item.account_name && item.state && item.state.risk_level) {
