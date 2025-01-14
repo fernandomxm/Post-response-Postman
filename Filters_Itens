@@ -1,0 +1,10 @@
+let response = pm.response.json();
+let names = [];
+if (response.data && Array.isArray(response.data.global_filters)) {    
+    response.data.global_filters.forEach(filter => {
+        if (filter.name) {
+            names.push(filter.name);
+        }
+    });
+}
+console.log("Itens:", names);
