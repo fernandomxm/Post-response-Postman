@@ -1,0 +1,30 @@
+let response = pm.response.json();
+let resultsByAccount = {};
+let excludedAccounts = ["461835337376", "getmypassword-ti (922106698561)", "auditoria-interna-totvs-8136", "ti-app-sec (027677615331)"];
+if (Array.isArray(response.data)) {
+    response.data.forEach(item => {
+        if (item.account_name && item.state && item.state.risk_level) {
+            let accountName = item.account_name;
+            if (excludedAccounts.includes(accountName)) {
+                return; // Pula este item e passa para o próximo
+            }
+            let riskLevel = item.state.risk_level;
+            if (!resultsByAccount[accountName]) {
+                resultsByAccount[accountName] = {
+                    high: 0,
+                    critical: 0
+                };
+            }
+            if (riskLevel === "high") {
+                resultsByAccount[accountName].high++;
+            } else if (riskLevel === "critical") {
+                resultsByAccount[accountName].critical++;
+            }
+        }
+    });
+}
+let sortedAccounts = Object.keys(resultsByAccount).sort();
+console.log("Severidade grouped by account_name:");
+sortedAccounts.forEach(account => {
+    console.log(`${account}:`, resultsByAccount[account]);
+});
