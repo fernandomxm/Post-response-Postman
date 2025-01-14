@@ -2,8 +2,7 @@ let response = pm.response.json();
 let highCount = 0;
 let criticalCount = 0;
 if (Array.isArray(response.data)) {
-    response.data.forEach(item => {
-        // Verifica a chave 'risk_level' e incrementa os contadores
+    response.data.forEach(item => {        
         if (item.state && item.state.risk_level) {
             if (item.state.risk_level === "high") {
                 highCount++;
